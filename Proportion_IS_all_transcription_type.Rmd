@@ -1,0 +1,14 @@
+percentage <- c(89/130, 23/130, 18/130, 171/228, 48/228, 9/228, 371/537, 138/537, 28/537)
+clinical_period <- c(rep("untreat (130)", 3), rep("short (228)", 3), rep("long (537)", 3))
+transcripts <- rep(c("Inactive repressed", "Elogated repressed", "Fully active"), 3)
+                     
+df_transcripts_tous <- data.frame(percentage, clinical_period, transcripts)
+
+deposer_transcript <- c("Inactive repressed", "Elogated repressed", "Fully active")
+deposer_clinical_period <- c("untreat", "short", "long")
+df_transcripts_tous$transcripts <- factor(df_transcripts_tous$transcripts, levels = deposer_transcript)
+df_transcripts_tous$clinical_period <- factor(df_transcripts_tous$clinical_period, levels = deposer_clinical_period)
+
+pdf("/media/chen/DATA/evoPath/Abb/df_transcripts_tous.pdf", height = 5, width = 3.5) 
+ggplot(df_transcripts.agg, aes(x = clinical_period, y = percentage, fill = transcripts))+geom_bar(stat = "identity", position = "stack", color = "black")+theme_bw()+scale_fill_brewer()+theme(axis.title.x=element_text(size=10), axis.text.x=element_text(size=10, colour = "black",angle=45, hjust = 1, vjust = 1), axis.title.y = element_text(size=10), axis.text.y = element_text(size = 10, colour = "black"))
+dev.off()
